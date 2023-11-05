@@ -1,0 +1,64 @@
+import googlemaps
+
+import overpy
+
+def get_all_route_names():
+    api = overpy.Overpass()
+
+    # 构建Overpass查询字符串来获取所有路线名称
+    query = """
+    [out:json];
+    way["highway"];
+    out body;
+    """
+    
+    result = api.query(query)
+
+    route_names = set()  # 使用集合来存储唯一的路线名称
+
+    for way in result.ways:
+        if "name" in way.tags:
+            route_name = way.tags["name"]
+            route_names.add(route_name)
+
+    return list(route_names)
+
+if __name__ == "__main__":
+    route_names = get_all_route_names()
+
+    if route_names:
+        print("所有路线名称：")
+        for name in route_names:
+            print(name)
+    else:
+        print("未找到路线名称。")
+
+
+def find_nearest_route(api_key, origin_lat, origin_lon):
+    gmaps = googlemaps.Client(key=api_key)
+
+    # 在Google Maps中查找附近的路线
+    places = gmaps.places_nearby(
+        location=(origin_lat, origin_lon),
+        rank_by="distance",
+        type="route"  # 这里可以指定你要查找的路线类型，如"route"、"street_address"等
+    )
+
+    if places.get("results"):
+        nearest_route = places["results"][0]
+        return nearest_route
+    else:
+        return None
+
+if __name__ == "__main__":
+    api_key = "AIzaSyD9BRgtHmmIYyqRmy92puu3U6KVd9W3BqI"
+    origin_lat = 27.988333
+    origin_lon = 86.925278
+
+    nearest_route = find_nearest_route(api_key, origin_lat, origin_lon)
+
+    if nearest_route:
+        route_name = nearest_route.get("name", "未知路线")
+        print(route_name)
+    else:
+        print("无法找到附近的路线。")

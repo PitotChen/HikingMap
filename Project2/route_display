@@ -1,0 +1,20 @@
+import folium
+from osm_route import get_trails_near_location
+from decimal import Decimal
+# 你的坐标点
+def route_display():
+    lat, lon = 37.7749, -122.4194
+    trail = get_trails_near_location(lat, lon)
+    coordinates_float = [(float(lat), float(lon)) for lat, lon in trail['coordinates']]
+    print(coordinates_float)
+    
+        
+
+# 创建一个以第一个坐标点为中心的地图
+#m = folium.Map(location=[float(coordinates[0][0]), float(coordinates[0][1])], zoom_start=16)
+
+# 添加一个包含所有坐标点的路径到地图上
+#path = folium.PolyLine(locations=[[float(coord[0]), float(coord[1])] for coord in coordinates], color="blue", weight=2.5, opacity=1).add_to(m)
+
+# 将地图保存为一个HTML文件
+#m.save('map.html')
