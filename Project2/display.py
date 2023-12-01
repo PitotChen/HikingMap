@@ -22,7 +22,7 @@ def get_elevation(latitude, longitude, api_key):
         return None
 
 if __name__ == "__main__":
-    api_key = "AIzaSyD9BRgtHmmIYyqRmy92puu3U6KVd9W3BqI"
+    api_key = "<api_key>"
     latitude = 27.988333
     longitude = 86.925278
     elevation = get_elevation(latitude, longitude, api_key)
