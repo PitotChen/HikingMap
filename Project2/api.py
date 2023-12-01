@@ -1,6 +1,6 @@
 import requests
 
-def get_elevation(latitude, longitude, api_key = "AIzaSyD9BRgtHmmIYyqRmy92puu3U6KVd9W3BqI"):
+def get_elevation(latitude, longitude, api_key = "<api_key>"):
     base_url = "https://maps.googleapis.com/maps/api/elevation/json"
     params = {
         "locations": f"{latitude},{longitude}",
